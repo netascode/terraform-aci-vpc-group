@@ -1,23 +1,28 @@
 <!-- BEGIN_TF_DOCS -->
-[![Tests](https://github.com/netascode/terraform-aci-scaffolding/actions/workflows/test.yml/badge.svg)](https://github.com/netascode/terraform-aci-scaffolding/actions/workflows/test.yml)
+[![Tests](https://github.com/netascode/terraform-aci-vpc-group/actions/workflows/test.yml/badge.svg)](https://github.com/netascode/terraform-aci-vpc-group/actions/workflows/test.yml)
 
-# Terraform ACI Scaffolding Module
+# Terraform ACI vPC Group Module
 
-Description
+Manages ACI vPC Group
 
 Location in GUI:
-`Tenants` » `XXX`
+`Fabric` » `Access Policies` » `Policies` » `Switch` » `Virtual Port Channel default`
 
 ## Examples
 
 ```hcl
-module "aci_scaffolding" {
-  source  = "netascode/scaffolding/aci"
+module "aci_vpc_group" {
+  source  = "netascode/vpc-group/aci"
   version = ">= 0.0.1"
 
-  name        = "ABC"
-  alias       = "ABC-ALIAS"
-  description = "My Description"
+  mode = "explicit"
+  groups = [{
+    name     = "VPC101"
+    id       = 101
+    policy   = "VPC1"
+    switch_1 = 101
+    switch_2 = 102
+  }]
 }
 
 ```
@@ -39,20 +44,19 @@ module "aci_scaffolding" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_name"></a> [name](#input\_name) | Tenant name. | `string` | n/a | yes |
-| <a name="input_alias"></a> [alias](#input\_alias) | Tenant alias. | `string` | `""` | no |
-| <a name="input_description"></a> [description](#input\_description) | Tenant description. | `string` | `""` | no |
+| <a name="input_mode"></a> [mode](#input\_mode) | Mode. Choices: `explicit`, `consecutive`, `reciprocal`. | `string` | `"explicit"` | no |
+| <a name="input_groups"></a> [groups](#input\_groups) | List of groups. Allowed values `id`: 1-1000. Allowed values `switch_1`: 1-16000. Allowed values `switch_2`: 1-16000. | <pre>list(object({<br>    name     = string<br>    id       = number<br>    policy   = optional(string)<br>    switch_1 = number<br>    switch_2 = number<br>  }))</pre> | `[]` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_dn"></a> [dn](#output\_dn) | Distinguished name of `fvTenant` object. |
-| <a name="output_name"></a> [name](#output\_name) | Tenant name. |
+| <a name="output_dn"></a> [dn](#output\_dn) | Distinguished name of `fabricProtPol` object. |
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [aci_rest.fvTenant](https://registry.terraform.io/providers/netascode/aci/latest/docs/resources/rest) | resource |
+| [aci_rest.fabricExplicitGEp](https://registry.terraform.io/providers/netascode/aci/latest/docs/resources/rest) | resource |
+| [aci_rest.fabricProtPol](https://registry.terraform.io/providers/netascode/aci/latest/docs/resources/rest) | resource |
 <!-- END_TF_DOCS -->
