@@ -9,7 +9,7 @@ resource "aci_rest" "fabricProtPol" {
 
 resource "aci_rest" "fabricExplicitGEp" {
   for_each   = { for g in var.groups : g.name => g }
-  dn         = "${aci_rest.fabricProtPol.id}/expgep-${each.key}"
+  dn         = "${aci_rest.fabricProtPol.dn}/expgep-${each.key}"
   class_name = "fabricExplicitGEp"
   content = {
     name        = each.value.name
