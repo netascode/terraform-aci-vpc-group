@@ -59,4 +59,5 @@ module "aci_vpc_group" {
 |------|------|
 | [aci_rest.fabricExplicitGEp](https://registry.terraform.io/providers/netascode/aci/latest/docs/resources/rest) | resource |
 | [aci_rest.fabricProtPol](https://registry.terraform.io/providers/netascode/aci/latest/docs/resources/rest) | resource |
+| [aci_rest.fabricRsVpcInstPol](https://registry.terraform.io/providers/netascode/aci/latest/docs/resources/rest) | resource |
 <!-- END_TF_DOCS -->

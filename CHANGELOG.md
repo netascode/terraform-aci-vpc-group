@@ -1,3 +1,7 @@
+## 0.0.3
+
+- Fix idempotency of vpc policy
+
 ## 0.0.2
 
 - Update implicit resource dependencies

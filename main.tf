@@ -12,20 +12,8 @@ resource "aci_rest" "fabricExplicitGEp" {
   dn         = "${aci_rest.fabricProtPol.dn}/expgep-${each.key}"
   class_name = "fabricExplicitGEp"
   content = {
-    name        = each.value.name
-    id          = each.value.id
-    childAction = "deleteNonPresent"
-  }
-
-  dynamic "child" {
-    for_each = each.value.policy != null ? [""] : []
-    content {
-      rn         = "rsvpcInstPol"
-      class_name = "fabricRsVpcInstPol"
-      content = {
-        tnVpcInstPolName = each.value.policy
-      }
-    }
+    name = each.value.name
+    id   = each.value.id
   }
 
   child {
@@ -42,5 +30,14 @@ resource "aci_rest" "fabricExplicitGEp" {
     content = {
       id = each.value.switch_2
     }
+  }
+}
+
+resource "aci_rest" "fabricRsVpcInstPol" {
+  for_each   = { for g in var.groups : g.name => g }
+  dn         = "${aci_rest.fabricProtPol.dn}/expgep-${each.key}/rsvpcInstPol"
+  class_name = "fabricRsVpcInstPol"
+  content = {
+    tnVpcInstPolName = each.value.policy
   }
 }
