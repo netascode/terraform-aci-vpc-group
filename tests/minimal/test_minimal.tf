@@ -5,8 +5,8 @@ terraform {
     }
 
     aci = {
-      source  = "netascode/aci"
-      version = ">=0.2.0"
+      source  = "CiscoDevNet/aci"
+      version = ">=2.0.0"
     }
   }
 }
@@ -17,7 +17,7 @@ module "main" {
   mode = "consecutive"
 }
 
-data "aci_rest" "fabricProtPol" {
+data "aci_rest_managed" "fabricProtPol" {
   dn = "uni/fabric/protpol"
 
   depends_on = [module.main]
@@ -28,7 +28,7 @@ resource "test_assertions" "fabricProtPol" {
 
   equal "pairT" {
     description = "pairT"
-    got         = data.aci_rest.fabricProtPol.content.pairT
+    got         = data.aci_rest_managed.fabricProtPol.content.pairT
     want        = "consecutive"
   }
 }

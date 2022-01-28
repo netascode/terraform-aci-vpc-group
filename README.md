@@ -13,7 +13,7 @@ Location in GUI:
 ```hcl
 module "aci_vpc_group" {
   source  = "netascode/vpc-group/aci"
-  version = ">= 0.0.1"
+  version = ">= 0.1.0"
 
   mode = "explicit"
   groups = [{
@@ -24,7 +24,6 @@ module "aci_vpc_group" {
     switch_2 = 102
   }]
 }
-
 ```
 
 ## Requirements
@@ -32,13 +31,13 @@ module "aci_vpc_group" {
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aci"></a> [aci](#requirement\_aci) | >= 0.2.0 |
+| <a name="requirement_aci"></a> [aci](#requirement\_aci) | >= 2.0.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aci"></a> [aci](#provider\_aci) | >= 0.2.0 |
+| <a name="provider_aci"></a> [aci](#provider\_aci) | >= 2.0.0 |
 
 ## Inputs
 
@@ -57,7 +56,7 @@ module "aci_vpc_group" {
 
 | Name | Type |
 |------|------|
-| [aci_rest.fabricExplicitGEp](https://registry.terraform.io/providers/netascode/aci/latest/docs/resources/rest) | resource |
-| [aci_rest.fabricProtPol](https://registry.terraform.io/providers/netascode/aci/latest/docs/resources/rest) | resource |
-| [aci_rest.fabricRsVpcInstPol](https://registry.terraform.io/providers/netascode/aci/latest/docs/resources/rest) | resource |
+| [aci_rest_managed.fabricExplicitGEp](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/rest_managed) | resource |
+| [aci_rest_managed.fabricProtPol](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/rest_managed) | resource |
+| [aci_rest_managed.fabricRsVpcInstPol](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/rest_managed) | resource |
 <!-- END_TF_DOCS -->

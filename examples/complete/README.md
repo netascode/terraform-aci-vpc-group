@@ -14,7 +14,7 @@ Note that this example will create resources. Resources can be destroyed with `t
 ```hcl
 module "aci_vpc_group" {
   source  = "netascode/vpc-group/aci"
-  version = ">= 0.0.1"
+  version = ">= 0.1.0"
 
   mode = "explicit"
   groups = [{
@@ -25,6 +25,5 @@ module "aci_vpc_group" {
     switch_2 = 102
   }]
 }
-
 ```
 <!-- END_TF_DOCS -->

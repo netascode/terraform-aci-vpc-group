@@ -1,4 +1,4 @@
-resource "aci_rest" "fabricProtPol" {
+resource "aci_rest_managed" "fabricProtPol" {
   dn         = "uni/fabric/protpol"
   class_name = "fabricProtPol"
   content = {
@@ -7,9 +7,9 @@ resource "aci_rest" "fabricProtPol" {
   }
 }
 
-resource "aci_rest" "fabricExplicitGEp" {
+resource "aci_rest_managed" "fabricExplicitGEp" {
   for_each   = { for g in var.groups : g.name => g }
-  dn         = "${aci_rest.fabricProtPol.dn}/expgep-${each.key}"
+  dn         = "${aci_rest_managed.fabricProtPol.dn}/expgep-${each.key}"
   class_name = "fabricExplicitGEp"
   content = {
     name = each.value.name
@@ -33,9 +33,9 @@ resource "aci_rest" "fabricExplicitGEp" {
   }
 }
 
-resource "aci_rest" "fabricRsVpcInstPol" {
+resource "aci_rest_managed" "fabricRsVpcInstPol" {
   for_each   = { for g in var.groups : g.name => g }
-  dn         = "${aci_rest.fabricProtPol.dn}/expgep-${each.key}/rsvpcInstPol"
+  dn         = "${aci_rest_managed.fabricProtPol.dn}/expgep-${each.key}/rsvpcInstPol"
   class_name = "fabricRsVpcInstPol"
   content = {
     tnVpcInstPolName = each.value.policy

@@ -5,8 +5,8 @@ terraform {
     }
 
     aci = {
-      source  = "netascode/aci"
-      version = ">=0.2.0"
+      source  = "CiscoDevNet/aci"
+      version = ">=2.0.0"
     }
   }
 }
@@ -24,7 +24,7 @@ module "main" {
   }]
 }
 
-data "aci_rest" "fabricProtPol" {
+data "aci_rest_managed" "fabricProtPol" {
   dn = "uni/fabric/protpol"
 
   depends_on = [module.main]
@@ -35,13 +35,13 @@ resource "test_assertions" "fabricProtPol" {
 
   equal "pairT" {
     description = "pairT"
-    got         = data.aci_rest.fabricProtPol.content.pairT
+    got         = data.aci_rest_managed.fabricProtPol.content.pairT
     want        = "explicit"
   }
 }
 
-data "aci_rest" "fabricExplicitGEp" {
-  dn = "${data.aci_rest.fabricProtPol.id}/expgep-VPC101"
+data "aci_rest_managed" "fabricExplicitGEp" {
+  dn = "${data.aci_rest_managed.fabricProtPol.id}/expgep-VPC101"
 
   depends_on = [module.main]
 }
@@ -51,19 +51,19 @@ resource "test_assertions" "fabricExplicitGEp" {
 
   equal "name" {
     description = "name"
-    got         = data.aci_rest.fabricExplicitGEp.content.name
+    got         = data.aci_rest_managed.fabricExplicitGEp.content.name
     want        = "VPC101"
   }
 
   equal "id" {
     description = "id"
-    got         = data.aci_rest.fabricExplicitGEp.content.id
+    got         = data.aci_rest_managed.fabricExplicitGEp.content.id
     want        = "101"
   }
 }
 
-data "aci_rest" "fabricRsVpcInstPol" {
-  dn = "${data.aci_rest.fabricExplicitGEp.id}/rsvpcInstPol"
+data "aci_rest_managed" "fabricRsVpcInstPol" {
+  dn = "${data.aci_rest_managed.fabricExplicitGEp.id}/rsvpcInstPol"
 
   depends_on = [module.main]
 }
@@ -73,13 +73,13 @@ resource "test_assertions" "fabricRsVpcInstPol" {
 
   equal "tnVpcInstPolName" {
     description = "tnVpcInstPolName"
-    got         = data.aci_rest.fabricRsVpcInstPol.content.tnVpcInstPolName
+    got         = data.aci_rest_managed.fabricRsVpcInstPol.content.tnVpcInstPolName
     want        = "VPC1"
   }
 }
 
-data "aci_rest" "fabricNodePEp-1" {
-  dn = "${data.aci_rest.fabricExplicitGEp.id}/nodepep-101"
+data "aci_rest_managed" "fabricNodePEp-1" {
+  dn = "${data.aci_rest_managed.fabricExplicitGEp.id}/nodepep-101"
 
   depends_on = [module.main]
 }
@@ -89,13 +89,13 @@ resource "test_assertions" "fabricNodePEp-1" {
 
   equal "id" {
     description = "id"
-    got         = data.aci_rest.fabricNodePEp-1.content.id
+    got         = data.aci_rest_managed.fabricNodePEp-1.content.id
     want        = "101"
   }
 }
 
-data "aci_rest" "fabricNodePEp-2" {
-  dn = "${data.aci_rest.fabricExplicitGEp.id}/nodepep-102"
+data "aci_rest_managed" "fabricNodePEp-2" {
+  dn = "${data.aci_rest_managed.fabricExplicitGEp.id}/nodepep-102"
 
   depends_on = [module.main]
 }
@@ -105,7 +105,7 @@ resource "test_assertions" "fabricNodePEp-2" {
 
   equal "id" {
     description = "id"
-    got         = data.aci_rest.fabricNodePEp-2.content.id
+    got         = data.aci_rest_managed.fabricNodePEp-2.content.id
     want        = "102"
   }
 }
