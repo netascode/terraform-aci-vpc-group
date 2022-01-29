@@ -1,3 +1,7 @@
+## 0.1.1
+
+- Fix vpc policy dependency
+
 ## 0.1.0
 
 - Migrate to devnet provider
