@@ -34,7 +34,7 @@ resource "aci_rest_managed" "fabricExplicitGEp" {
 }
 
 resource "aci_rest_managed" "fabricRsVpcInstPol" {
-  for_each   = { for g in var.groups : g.name => g }
+  for_each   = { for g in var.groups : g.name => g if g.policy != null }
   dn         = "${aci_rest_managed.fabricExplicitGEp[each.key].dn}/rsvpcInstPol"
   class_name = "fabricRsVpcInstPol"
   content = {

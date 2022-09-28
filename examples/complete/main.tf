@@ -1,6 +1,6 @@
 module "aci_vpc_group" {
   source  = "netascode/vpc-group/aci"
-  version = ">= 0.1.0"
+  version = ">= 0.2.0"
 
   mode = "explicit"
   groups = [{
